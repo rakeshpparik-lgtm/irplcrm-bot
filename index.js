@@ -82,7 +82,7 @@ app.post('/webhook', async (req, res) => {
   if (!from) return;
 
   // Authorise only your number
-  if (from !== process.env.OWNER_PHONE) {
+  const cleanFrom = from.replace(/^\+/, ""); const cleanOwner = (process.env.OWNER_PHONE || "").replace(/^\+/, ""); if (cleanFrom !== cleanOwner) {
     await send(from, '⛔ Unauthorised number. Contact your CRM admin.');
     return;
   }
